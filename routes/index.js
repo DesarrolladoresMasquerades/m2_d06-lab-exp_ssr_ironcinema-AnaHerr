@@ -6,18 +6,9 @@ const Movie = require("../models/Movie.model");
 /* GET home page */
 router.get('/', (req, res, next) => res.render('index'));
 
-router.get("/movies", (req, res, next) => {
-    Movie.find()
-    .then(movies =>{
-      console.log(`Listed ${movies.length} movies from the DB`)
-      res.render("movies", {movies})
-    })
-    .catch((err)=> console.log ("DB error reading '/movies"));
-  });
 
-
-  //ITERATION 4
-  router.get("/movies/:id", (req, res, next) => {
+//ITERATION 4
+router.get("/movies/:id", (req, res, next) => {
     const id= req.params.id
       Movie.findById(id)
       .then((movie) =>{
@@ -26,11 +17,14 @@ router.get("/movies", (req, res, next) => {
   });
 
 
-
-
-
-
-
+router.get("/movies", (req, res, next) => {
+    Movie.find()
+    .then(movies =>{
+      console.log(`Listed ${movies.length} movies from the DB`)
+      res.render("movies", {movies})
+    })
+    .catch((err)=> console.log ("DB error reading '/movies"));
+  });
 
 
 module.exports = router;
